@@ -5,7 +5,7 @@ import Waveform from './Waveform';
 class App extends Component {
   
   render() {
-    return <div className='parent-component'><Waveform src={'./Big_Dog_Barking.mp3'} /></div>
+    return <div className='parent-component'><Waveform /></div>
   }
   // render () {
     

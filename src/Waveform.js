@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer'
+import soundFile from './Big_Dog_Barking.mp3'
 
 export default class Waveform extends React.Component {
     constructor(props) {
@@ -13,6 +14,10 @@ export default class Waveform extends React.Component {
     playAudio = () => {
         this.wavesurfer.play();
     }
+
+    stopAudio = () => {
+        this.wavesurfer.stop();
+    }
     componentDidMount() {
         this.$el = ReactDOM.findDOMNode(this)
         this.$waveform = this.$el.querySelector('.wave')
@@ -23,7 +28,7 @@ export default class Waveform extends React.Component {
             backend: 'MediaElement'
         })
         this.wavesurfer.load('http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3')
-        this.wavesurfer.load('parking_garage.wav')
+        this.wavesurfer.load(soundFile)
     }
     componentWillUnmount() {
 
@@ -33,6 +38,7 @@ export default class Waveform extends React.Component {
             <div className='waveform'>
                 <div className='wave'></div>
                 <button onClick={this.playAudio}>Play</button>
+                <button onClick={this.stopAudio}>Stop</button>
             </div>
         )
     }
