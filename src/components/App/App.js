@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Waveform from './Waveform';
+import Waveform from '../Waveform/Waveform';
 
 class App extends Component {
   

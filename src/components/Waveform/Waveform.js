@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer'
-import soundFile from './Big_Dog_Barking.mp3'
+import soundFile from '../../audio/Big_Dog_Barking.mp3'
 
 export default class Waveform extends React.Component {
     constructor(props) {
