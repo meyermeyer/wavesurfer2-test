@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 import Waveform from '../Waveform/Waveform';
+import Uploader from '../Uploader/Uploader'
+
 
 class App extends Component {
   
   render() {
-    return <div className='parent-component'><Waveform /></div>
+    return (
+      <div className='parent-component'>
+        <Waveform />
+        <Uploader />
+      </div>
+    )
+      
   }
   // render () {
     
