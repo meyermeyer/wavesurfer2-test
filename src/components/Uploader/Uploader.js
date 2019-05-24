@@ -13,8 +13,19 @@ class Uploader extends Component {
         super(props)
         this.uppy = Uppy()
             // .use(Transloadit, {})
+        this.uppy.upload().then((result) => {
+            console.info('Successful uploads:', result.successful)
+
+            if (result.failed.length > 0) {
+                console.error('Errors:')
+                result.failed.forEach((file) => {
+                    console.error(file.error)
+                })
+            }
+        })
     }
 
+    
     componentWillUnmount() {
         this.uppy.close()
     }

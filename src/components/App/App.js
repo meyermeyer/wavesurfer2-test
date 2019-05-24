@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Waveform from '../Waveform/Waveform';
-import Uploader from '../Uploader/Uploader'
+import Uploader from '../Uploader/Uploader';
+import UppyModal from '../UppyModal/UppyModal';
+// import BubbleViz from './BubbleViz';
 
 
 class App extends Component {
@@ -10,7 +12,9 @@ class App extends Component {
     return (
       <div className='parent-component'>
         <Waveform />
-        <Uploader />
+        {/* <Uploader /> */}
+        <UppyModal />
+        {/* <BubbleViz /> */}
       </div>
     )
       
