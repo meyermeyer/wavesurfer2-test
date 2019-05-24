@@ -17,7 +17,7 @@ export default class Waveform extends React.Component {
 
     allowAnnotation = () => {
         console.log('in allowAnnotation');
-        this.wavesurfer.enableDragSelection();
+        this.wavesurfer.enableDragSelection({});
     
     }
    
@@ -39,7 +39,7 @@ export default class Waveform extends React.Component {
             waveColor: 'violet',
             progressColor: 'purple',
             backend: 'MediaElement',
-            // plugins: [RegionsPlugin.create({})]
+            plugins: [RegionsPlugin.create({})]
         })
         // const RegionsPlugin = WaveSurfer.regions
         // this.wavesurfer.load('http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3')
