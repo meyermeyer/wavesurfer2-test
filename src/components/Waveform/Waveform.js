@@ -6,22 +6,55 @@ import dogBarking from '../../audio/Big_Dog_Barking.mp3'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.js'
 
 
-export default class Waveform extends React.Component {
-    constructor(props) {
-        super(props)
-        // WaveSurfer.Regions = RegionsPlugin
-        this.state = {
 
-        }
+export default class Waveform extends React.Component {
+    state = {
+        regionsList: []
+    }
+
+    // wavesurfer = WaveSurfer.create({
+    //     container: this.$waveform,
+    //     waveColor: 'violet',
+    //     progressColor: 'purple',
+    //     backend: 'MediaElement',
+    //     plugins: [RegionsPlugin.create({})]
+    // })
+    // saveRegions = () => {
+    //     console.log('in saveRegions');
+    //     this.setState({
+    //         regions: 
+    //     })
+        
+    // }
+
+    randomColor = (alpha) => {
+    return (
+        'rgba(' +
+        [
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            ~~(Math.random() * 255),
+            alpha || 1
+        ] +
+        ')'
+    );
     }
 
     allowAnnotation = () => {
         console.log('in allowAnnotation');
-        this.wavesurfer.enableDragSelection({});
-    
+        this.wavesurfer.enableDragSelection({
+            color: this.randomColor(.1)
+        });
     }
    
-    
+    saveRegions = () => {
+        console.log('in saveRegions', this.wavesurfer.regions.list);
+        this.setState({
+            regions: [this.wavesurfer.regions.list]
+        })
+        
+    }
+
     playAudio = () => {
         this.wavesurfer.play();
     }
@@ -41,16 +74,18 @@ export default class Waveform extends React.Component {
             backend: 'MediaElement',
             plugins: [RegionsPlugin.create({})]
         })
-        // const RegionsPlugin = WaveSurfer.regions
-        // this.wavesurfer.load('http://ia902606.us.archive.org/35/items/shortpoetry_047_librivox/song_cjrg_teasdale_64kb.mp3')
         this.wavesurfer.load(dogBarking);
+        console.log(this.wavesurfer.regions);
         
-        // this.wavesurfer.load('https://master.tus.io/files/c0f264e71bb8721c0e5d4c4ff7cb5444+j5m5FZ8RQ_N.7TS3hWsr0YBbwuQMgRS9BCQIM9t7GXGjE_wxpGNo.AFUnAhKC9PHpHpgrXocLzfUvDPRG1Jx4y327NlQktYB00E_0JNlgH7f7JCaiF8SfREDar06HOVE')
+        this.wavesurfer.on('region-created', this.saveRegions);
     }
     componentWillUnmount() {
 
     }
     render() {
+        console.log('setting regions', this.state.regions);
+        
+        
         return (
             <div className='waveform'>
                 <div onClick={this.handleClick} className='wave'></div>
