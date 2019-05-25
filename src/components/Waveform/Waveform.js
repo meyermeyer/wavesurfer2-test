@@ -49,19 +49,31 @@ class Waveform extends React.Component {
     }
    
     saveRegions = () => {
+        // alert('you created a region');
+        let regionTag = prompt("Tag")
+        let regionNotes = prompt("Notes")
+ 
+        console.log('prompt responses:', regionTag, regionNotes);
+        
+
         let regionsArray = []
         for (let i in this.wavesurfer.regions.list){
             regionsArray.push(this.wavesurfer.regions.list[i])
         }
         console.log('in saveRegions', this.wavesurfer.regions.list);
         this.wavesurfer.regions.list && this.setState({
+            ...this.state,
             regionsList: regionsArray
         })
-        this.props.dispatch({type:"SEND_REGIONS", payload: regionsArray})
+        this.props.dispatch({type:"SEND_REGIONS", payload: regionsArray, })
     }
 
     playAudio = () => {
         this.wavesurfer.play();
+    }
+
+    pauseAudio = () => {
+        this.wavesurfer.pause();
     }
 
     stopAudio = () => {
@@ -81,7 +93,6 @@ class Waveform extends React.Component {
         })
         this.wavesurfer.load(dogBarking);
         console.log(this.wavesurfer.regions);
-        
         this.wavesurfer.on('region-update-end', this.saveRegions);
     }
     componentWillUnmount() {
@@ -95,6 +106,7 @@ class Waveform extends React.Component {
             <div className='waveform'>
                 <div onClick={this.handleClick} className='wave'></div>
                 <button onClick={this.playAudio}>Play</button>
+                <button onClick={this.pauseAudio}>Pause</button>
                 <button onClick={this.stopAudio}>Stop</button>
                 <button onClick={this.allowAnnotation}>Annotate</button>
             </div>
