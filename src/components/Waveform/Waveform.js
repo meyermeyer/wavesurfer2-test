@@ -48,10 +48,16 @@ export default class Waveform extends React.Component {
     }
    
     saveRegions = () => {
+        let regionsArray = []
+        for (let i in this.wavesurfer.regions.list){
+            regionsArray.push(this.wavesurfer.regions.list[i])
+        }
         console.log('in saveRegions', this.wavesurfer.regions.list);
-        this.setState({
-            regions: [this.wavesurfer.regions.list]
+        this.wavesurfer.regions.list && this.setState({
+            regionsList: regionsArray
         })
+        
+        
         
     }
 
@@ -83,7 +89,7 @@ export default class Waveform extends React.Component {
 
     }
     render() {
-        console.log('setting regions', this.state.regions);
+        console.log('setting regions', this.state.regionsList);
         
         
         return (
