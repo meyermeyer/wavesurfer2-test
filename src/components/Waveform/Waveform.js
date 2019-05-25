@@ -4,10 +4,11 @@ import WaveSurfer from 'wavesurfer.js'
 // import RegionsPlugin from 'wavesurfer/plugin/wavesurfer.regions';
 import dogBarking from '../../audio/Big_Dog_Barking.mp3'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.js'
+import {connect} from 'react-redux'
 
 
 
-export default class Waveform extends React.Component {
+class Waveform extends React.Component {
     state = {
         regionsList: []
     }
@@ -56,9 +57,7 @@ export default class Waveform extends React.Component {
         this.wavesurfer.regions.list && this.setState({
             regionsList: regionsArray
         })
-        
-        
-        
+        this.props.dispatch({type:"SEND_REGIONS", payload: regionsArray})
     }
 
     playAudio = () => {
@@ -83,7 +82,7 @@ export default class Waveform extends React.Component {
         this.wavesurfer.load(dogBarking);
         console.log(this.wavesurfer.regions);
         
-        this.wavesurfer.on('region-created', this.saveRegions);
+        this.wavesurfer.on('region-update-end', this.saveRegions);
     }
     componentWillUnmount() {
 
@@ -106,3 +105,5 @@ export default class Waveform extends React.Component {
 Waveform.defaultProps = {
     src: ""
 }
+
+export default connect()(Waveform);
