@@ -174,7 +174,14 @@ class Waveform extends React.Component {
                 <button onClick={this.playAudio}>Play</button>
                 <button onClick={this.pauseAudio}>Pause</button>
                 <button onClick={this.stopAudio}>Stop</button>
-                <button onClick={this.allowAnnotation}>Annotate</button>
+                {/* <button onClick={this.allowAnnotation}>Annotate</button> */}
+                <ul>
+                    {this.state.regionsArray.map((region)=>{
+                        return(
+                            <li>{region.data.regionTag}</li>
+                        )
+                    })}
+                </ul>
             </div>
         )
     }
