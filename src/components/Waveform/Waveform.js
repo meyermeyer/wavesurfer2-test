@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
-// import RegionsPlugin from 'wavesurfer/plugin/wavesurfer.regions';
 import dogBarking from '../../audio/Big_Dog_Barking.mp3'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.js'
 import {connect} from 'react-redux'
@@ -10,7 +9,9 @@ import {connect} from 'react-redux'
 
 class Waveform extends React.Component {
     state = {
-        regionsArray: []
+        regionsArray: [],
+        trackName: 'track 1',
+        randomColor: ''
     }
 
     // wavesurfer = WaveSurfer.create({
@@ -27,6 +28,8 @@ class Waveform extends React.Component {
     //     })
         
     // }
+
+
 
     randomColor = (alpha) => {
     return (
@@ -50,6 +53,40 @@ class Waveform extends React.Component {
 
     handleHover = (region) => {
         console.log('hovering over', region.data.regionTag);
+
+        
+    }
+
+    editTrackName = () => {
+        console.log('in editTrackName');
+        this.setState({
+            ...this.state,
+            trackName: 
+                <form onSubmit={this.handleNameSubmit}>
+                    <input onChange={this.handleNameInput}></input>
+                </form>
+                
+        }) 
+        
+    }
+
+    handleNameInput = (event) =>{
+        console.log('in handleNameInput', event.target.value);
+        this.setState({
+            ...this.state,
+            trackNameInput: event.target.value 
+        })
+    }
+
+    handleNameSubmit = (event) => {
+        event.preventDefault();
+        console.log('in handleNameSubmit');
+        this.setState ({
+            ...this.state,
+            trackName: this.state.trackNameInput,
+            trackNameInput: ''
+        })
+
         
     }
    
@@ -111,16 +148,28 @@ class Waveform extends React.Component {
         console.log(this.wavesurfer.regions);
         this.wavesurfer.on('region-update-end', this.saveRegions);
         this.wavesurfer.on('region-mouseenter',this.handleHover)
+        this.wavesurfer.on('ready', this.allowAnnotation)
+        this.wavesurfer.on()
+        
     }
+
+    // componentDidUpdate() {
+    //     this.wavesurfer.enableDragSelection({
+    //         color: this.randomColor(0.1)
+    //     });
+    // }
     componentWillUnmount() {
 
     }
     render() {
+        
+       
         console.log('setting regions', this.state.regionsList);
         
         
         return (
             <div className='waveform'>
+                <h3 onClick={this.editTrackName}>{this.state.trackName}</h3>
                 <div onClick={this.handleClick} className='wave'></div>
                 <button onClick={this.playAudio}>Play</button>
                 <button onClick={this.pauseAudio}>Pause</button>
