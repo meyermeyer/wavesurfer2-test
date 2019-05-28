@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <div className='parent-component'>
-        <Microphone />
+        {/* <Microphone /> */}
         <Waveform />
         {/* <Uploader /> */}
         <UppyModal />

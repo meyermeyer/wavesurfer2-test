@@ -93,6 +93,10 @@ class Waveform extends React.Component {
     }
 
     labelRegion = (region) => {
+        
+    }
+   
+    saveRegions = (region) => {
         // alert('you created a region');
         let regionTag = prompt("Tag")
         let regionNotes = prompt("Notes")
@@ -107,10 +111,6 @@ class Waveform extends React.Component {
         console.log('updated region', region);
         console.log('prompt responses:', regionTag, regionNotes);
         console.log(this.wavesurfer.regions);
-    }
-   
-    saveRegions = () => {
-        
        
         //add regions.list objects to arrat
         let regionsArray = []
