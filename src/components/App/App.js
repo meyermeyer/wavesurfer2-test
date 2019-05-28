@@ -3,6 +3,7 @@ import './App.css';
 import Waveform from '../Waveform/Waveform';
 import Uploader from '../Uploader/Uploader';
 import UppyModal from '../UppyModal/UppyModal';
+import Microphone from '../Microphone/Microphone.jsx'
 // import BubbleViz from './BubbleViz';
 
 
@@ -11,6 +12,7 @@ class App extends Component {
   render() {
     return (
       <div className='parent-component'>
+        <Microphone />
         <Waveform />
         {/* <Uploader /> */}
         <UppyModal />

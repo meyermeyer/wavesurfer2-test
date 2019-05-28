@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 import WaveSurfer from 'wavesurfer.js'
 import dogBarking from '../../audio/Big_Dog_Barking.mp3'
 import RegionsPlugin from 'wavesurfer.js/dist/plugin/wavesurfer.regions.js'
+import MicrophonePlugin from 'wavesurfer.js/dist/plugin/wavesurfer.microphone.js'
 import {connect} from 'react-redux'
+import './Waveform.css'
 
 
 
@@ -89,8 +91,8 @@ class Waveform extends React.Component {
 
         
     }
-   
-    saveRegions = (region) => {
+
+    labelRegion = (region) => {
         // alert('you created a region');
         let regionTag = prompt("Tag")
         let regionNotes = prompt("Notes")
@@ -105,6 +107,10 @@ class Waveform extends React.Component {
         console.log('updated region', region);
         console.log('prompt responses:', regionTag, regionNotes);
         console.log(this.wavesurfer.regions);
+    }
+   
+    saveRegions = () => {
+        
        
         //add regions.list objects to arrat
         let regionsArray = []
@@ -119,6 +125,16 @@ class Waveform extends React.Component {
             regionsArray: regionsArray
         })
         this.props.dispatch({type:"SEND_REGIONS", payload: regionsArray, })
+    }
+
+    loopRegion = (region) => {
+        console.log('in loopRegion');
+        region.update({
+            loop: true
+        })
+        region.playLoop();
+
+
     }
 
     playAudio = () => {
@@ -142,7 +158,7 @@ class Waveform extends React.Component {
             waveColor: 'violet',
             progressColor: 'purple',
             backend: 'MediaElement',
-            plugins: [RegionsPlugin.create({})]
+            plugins: [RegionsPlugin.create({}), MicrophonePlugin.create({})]
         })
         this.wavesurfer.load(dogBarking);
         console.log(this.wavesurfer.regions);
@@ -150,6 +166,9 @@ class Waveform extends React.Component {
         this.wavesurfer.on('region-mouseenter',this.handleHover)
         this.wavesurfer.on('ready', this.allowAnnotation)
         this.wavesurfer.on()
+        this.wavesurfer.on('region-dblclick', this.loopRegion)
+        this.wavesurfer.on('region-click', this.labelRegion)
+        
         
     }
 
@@ -170,7 +189,14 @@ class Waveform extends React.Component {
         return (
             <div className='waveform'>
                 <h3 onClick={this.editTrackName}>{this.state.trackName}</h3>
-                <div onClick={this.handleClick} className='wave'></div>
+                <div onClick={this.handleClick} className='wave'>
+                    {/* {this.state.regionsArray.map((region)=>{
+                        return(
+                            <p id='tag'>{region.data.regionTag}</p>
+                        )
+                        
+                    })} */}
+                </div>
                 <button onClick={this.playAudio}>Play</button>
                 <button onClick={this.pauseAudio}>Pause</button>
                 <button onClick={this.stopAudio}>Stop</button>
