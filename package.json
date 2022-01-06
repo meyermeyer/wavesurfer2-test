@@ -18,7 +18,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
-    "uppy": "^1.0.2",
+    "uppy": "^2.3.3",
     "wavesurfer.js": "^2.2.1"
   },
   "scripts": {
